@@ -1,9 +1,6 @@
 # Azure Key Vault Secret Rotation History
 
 ```mermaid
----
-#displayMode: compact
----
 gantt
     title Secret Rotation Timeline
     dateFormat  YYYY-MM-DD HH:mm:ss
