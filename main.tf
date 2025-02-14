@@ -1,19 +1,3 @@
-variable "resource_group" {
-  description = "The resource group of the API Management instance"
-  type        = string
-}
-
-variable "key_vault_name" {
-  description = "The name of the Azure Key Vault"
-  type        = string
-}
-
-variable "rotation_frequency_days" {
-  description = "Rotation frequency in minutes"
-  type        = number
-  default     = 4
-}
-
 locals {
   current_time = timestamp()
 }
@@ -71,9 +55,9 @@ resource "random_password" "b" {
 }
 
 locals {
-  a_is_newer       = time_rotating.a.unix > time_rotating.b.unix
-  active_key      = local.a_is_newer ? format("a-%s", random_password.a.result) : format("b-%s", random_password.b.result)
-  active_key_expiry   = local.a_is_newer ? time_rotating.a.rotation_rfc3339 : time_rotating.b.rotation_rfc3339
+  a_is_newer        = time_rotating.a.unix > time_rotating.b.unix
+  active_key        = local.a_is_newer ? format("a-%s", random_password.a.result) : format("b-%s", random_password.b.result)
+  active_key_expiry = local.a_is_newer ? time_rotating.a.rotation_rfc3339 : time_rotating.b.rotation_rfc3339
 }
 
 data "azurerm_resource_group" "this" {
